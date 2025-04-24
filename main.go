@@ -20,6 +20,9 @@ func main() {
 	clientID := os.Getenv("CLIENT_ID")
 	clientSecret := os.Getenv("CLIENT_SECRET")
 
+	fmt.Println(clientID)
+	fmt.Println(clientSecret)
+
 	token, err := getSpotifyToken(clientID, clientSecret)
 	if err != nil {
 		log.Fatalf("Fehler beim Holen des Tokens: %v", err)
