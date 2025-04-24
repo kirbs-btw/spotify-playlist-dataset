@@ -20,9 +20,6 @@ func main() {
 	clientID := os.Getenv("CLIENT_ID")
 	clientSecret := os.Getenv("CLIENT_SECRET")
 
-	fmt.Println(clientID)
-	fmt.Println(clientSecret)
-
 	token, err := getSpotifyToken(clientID, clientSecret)
 	if err != nil {
 		log.Fatalf("Fehler beim Holen des Tokens: %v", err)
@@ -67,7 +64,7 @@ func searchSpotify(token, query string) {
 		SetQueryParams(map[string]string{
 			"q":    query,
 			"type": "playlist",
-			"limit": "10",
+			"limit": "50",
 		}).
 		Get("https://api.spotify.com/v1/search")
 
