@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"encoding/json"
-
+	"encoding/csv"
 	"github.com/go-resty/resty/v2"
 	"github.com/joho/godotenv"
 )
@@ -74,4 +74,28 @@ func searchSpotify(token, query string) {
 
 	fmt.Println("Response Body:")
 	fmt.Println(string(resp.Body()))
+}
+
+func do_csv_stuff() {
+	file, err := os.OpenFile("output.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+        log.Fatalf("Failed to create file: %s", err)
+    }
+    defer file.Close()
+
+	writer := csv.NewWriter(file)
+
+	defer writer.Flush() // Make sure data is written to the file
+}
+
+func csv_writer(row) {
+	// some values should get in here
+	// taking the open csv object i guess
+	
+	// writing the values to the csv 
+	// Write the row to the CSV file
+    err = writer.Write(row)
+    if err != nil {
+        log.Fatalf("Failed to write row: %s", err)
+    }
 }
