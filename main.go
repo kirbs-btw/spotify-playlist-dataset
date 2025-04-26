@@ -77,25 +77,40 @@ func searchSpotify(token, query string) {
 }
 
 func do_csv_stuff() {
+	// Open or create the CSV file in append mode
 	file, err := os.OpenFile("output.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-        log.Fatalf("Failed to create file: %s", err)
-    }
-    defer file.Close()
+		fmt.Printf("Failed to open file: %v\n", err)
+		return
+	}
+	defer file.Close()
 
+	// Create a new CSV writer
 	writer := csv.NewWriter(file)
 
-	defer writer.Flush() // Make sure data is written to the file
+	// Example usage of WriteToCSV
+	if err := WriteToCSV(writer, "Alice", 30, 88.5); err != nil {
+		fmt.Printf("Error writing to CSV: %v\n", err)
+	}
 }
 
-func csv_writer(row) {
-	// some values should get in here
-	// taking the open csv object i guess
-	
-	// writing the values to the csv 
-	// Write the row to the CSV file
-    err = writer.Write(row)
-    if err != nil {
-        log.Fatalf("Failed to write row: %s", err)
-    }
+
+func WriteToCSV(writer *csv.Writer, name string, age int, score float64) error {
+	// string conversion
+	ageStr := strconv.Itoa(age)
+	scoreStr := fmt.Sprintf("%.2f", score)
+
+	record := []string{name, ageStr, scoreStr}
+
+	if err := writer.Write(record); err != nil {
+		return fmt.Errorf("error writing record to CSV: %v", err)
+	}
+
+	// flushing
+	writer.Flush()
+	if err := writer.Error(); err != nil {
+		return fmt.Errorf("error flushing CSV writer: %v", err)
+	}
+
+	return nil
 }
