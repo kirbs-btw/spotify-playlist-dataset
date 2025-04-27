@@ -11,22 +11,31 @@ import (
 )
 
 func main() {
-	// .env laden
+	// load env variables
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Fehler beim Laden der .env Datei")
 	}
-
 	clientID := os.Getenv("CLIENT_ID")
 	clientSecret := os.Getenv("CLIENT_SECRET")
 
+	// get Spotify token
 	token, err := getSpotifyToken(clientID, clientSecret)
 	if err != nil {
 		log.Fatalf("Fehler beim Holen des Tokens: %v", err)
 	}
 
+	// creating the csv + writer
+	file, err := os.OpenFile("output.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Printf("Failed to open file: %v\n", err)
+		return
+	}
+	defer file.Close()
+	writer := csv.NewWriter(file)
+
 	// Jetzt API Call mit dem Token
-	searchSpotify(token, "workout")
+	// searchSpotify(token, "workout")
 }
 
 func getSpotifyToken(clientID, clientSecret string) (string, error) {
@@ -51,7 +60,6 @@ func getSpotifyToken(clientID, clientSecret string) (string, error) {
 	if !ok {
 		return "", fmt.Errorf("Access Token nicht gefunden im Response")
 	}
-
 	return token, nil
 }
 
@@ -64,7 +72,8 @@ func searchSpotify(token, query string) {
 		SetQueryParams(map[string]string{
 			"q":    query,
 			"type": "playlist",
-			"limit": "50",
+			"limit": "50", // max 0 - 50 number of playlist retrived 
+			"offset": "0" // 0 - 1000 offset to skip the ones already retrieved
 		}).
 		Get("https://api.spotify.com/v1/search")
 
@@ -76,26 +85,11 @@ func searchSpotify(token, query string) {
 	fmt.Println(string(resp.Body()))
 }
 
-func do_csv_stuff() {
-	// Open or create the CSV file in append mode
-	file, err := os.OpenFile("output.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		fmt.Printf("Failed to open file: %v\n", err)
-		return
-	}
-	defer file.Close()
-
-	// Create a new CSV writer
-	writer := csv.NewWriter(file)
-
-	// Example usage of WriteToCSV
-	if err := WriteToCSV(writer, "Alice", 30, 88.5); err != nil {
-		fmt.Printf("Error writing to CSV: %v\n", err)
-	}
-}
-
 
 func WriteToCSV(writer *csv.Writer, name string, age int, score float64) error {
+	// just some standard write to csv function 
+	// need to adjust the parameters to the output that will follow
+
 	// string conversion
 	ageStr := strconv.Itoa(age)
 	scoreStr := fmt.Sprintf("%.2f", score)
