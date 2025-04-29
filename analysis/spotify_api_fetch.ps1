@@ -17,3 +17,11 @@ $searchResponse = Invoke-RestMethod -Uri "https://api.spotify.com/v1/search?q=$s
   -Headers @{ "Authorization" = "Bearer $token" }
 
 $searchResponse
+
+# Oder spezifische Daten aus dem Antwortobjekt extrahieren
+$searchResponse.playlists.items | ForEach-Object {
+    Write-Host "Playlist Name: $($_.name)"
+    Write-Host "Playlist URL: $($_.external_urls.spotify)"
+}
+
+# need to fetch the content somehow - already in the resp but not correct parsed by me
