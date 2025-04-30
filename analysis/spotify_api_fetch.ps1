@@ -20,8 +20,10 @@ $searchResponse
 
 # Oder spezifische Daten aus dem Antwortobjekt extrahieren
 $searchResponse.playlists.items | ForEach-Object {
-    Write-Host "Playlist Name: $($_.name)"
-    Write-Host "Playlist URL: $($_.external_urls.spotify)"
+  Write-Host "Playlist Name: $($_.name)"
+  Write-Host "Tracks: $($_.tracks.href)"
+  # now need to fetch the songs from this tracks url
+  # can use preview_url could be also used later down the line in the project
 }
 
 # need to fetch the content somehow - already in the resp but not correct parsed by me
