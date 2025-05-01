@@ -21,9 +21,22 @@ $searchResponse
 # Oder spezifische Daten aus dem Antwortobjekt extrahieren
 $searchResponse.playlists.items | ForEach-Object {
   Write-Host "Playlist Name: $($_.name)"
-  Write-Host "Tracks: $($_.tracks.href)"
+  $tracksUrl = $_.tracks.href
   # now need to fetch the songs from this tracks url
   # can use preview_url could be also used later down the line in the project
+  $tracksResponse = Invoke-RestMethod -Uri $tracksUrl `
+        -Method Get `
+        -Headers @{ "Authorization" = "Bearer $token" }
+
+    # Gib einige Infos zu jedem Track aus
+    $tracksResponse.items | ForEach-Object {
+        $track = $_.track
+        Write-Host " - Track: $($track.name)"
+        Write-Host "   Artist(s): $($track.artists.name -join ", ")"
+        Write-Host "   Spotify URL: $($track.external_urls.spotify)"
+        Write-Host "   Spotify URL: $($track.id)"
+    }
 }
 
-# need to fetch the content somehow - already in the resp but not correct parsed by me
+# fetching songs works out, there is a cap with the resp rate here
+# 
