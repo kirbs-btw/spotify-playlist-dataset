@@ -35,14 +35,23 @@ $searchResponse.playlists.items | ForEach-Object {
         Write-Host "   Artist(s): $($track.artists.name -join ", ")"
         Write-Host "   Spotify URL: $($track.external_urls.spotify)"
         Write-Host "   Spotify id: $($track.id)"
+        Write-Host "   Release Date: $($track.release_date)"
     }
 }
 
 # fetching songs works out, there is a cap with the resp rate here
-# 
 
 # info id get from the api
 # items.id 
 # items.name ? 
-# tracks.href 
-#   
+# tracks.href
+# new api call
+# for track in tracks
+  # track.id
+  # track.name
+  # track.external_urls.spotify
+  # track.release_date
+  # for artist in artists
+    # artist.id
+    # artist.name
+    # artist.href
