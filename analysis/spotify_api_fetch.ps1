@@ -11,7 +11,7 @@ $tokenResponse = Invoke-RestMethod -Uri "https://accounts.spotify.com/api/token"
 $token = $tokenResponse.access_token
 
 # Fetch data from API
-$searchQuery = "this is a variable"
+$searchQuery = "p"
 $searchResponse = Invoke-RestMethod -Uri "https://api.spotify.com/v1/search?q=$searchQuery&type=playlist&limit=50" `
   -Method Get `
   -Headers @{ "Authorization" = "Bearer $token" }
@@ -26,19 +26,23 @@ $searchResponse.playlists.items | ForEach-Object {
   $tracksUrl = $_.tracks.href
   # now need to fetch the songs from this tracks url
   # can use preview_url could be also used later down the line in the project
+  $tracksUrl
+
   $tracksResponse = Invoke-RestMethod -Uri $tracksUrl `
         -Method Get `
         -Headers @{ "Authorization" = "Bearer $token" }
 
-    # Gib einige Infos zu jedem Track aus
-    $tracksResponse.items | ForEach-Object {
-        $track = $_.track
-        Write-Host " - Track: $($track.name)"
-        Write-Host "   Spotify URL: $($track.external_urls.spotify)"
-        Write-Host "   Spotify id: $($track.id)"
-        Write-Host "   Release Date: $($track.release_date)"
-        Write-Host "   Artist(s): $($track.artists.name -join ", ")"
-    }
+  $tracksResponse
+
+    # # Gib einige Infos zu jedem Track aus
+    # $tracksResponse.items | ForEach-Object {
+    #     $track = $_.track
+    #     Write-Host " - Track: $($track.name)"
+    #     Write-Host "   Spotify URL: $($track.external_urls.spotify)"
+    #     Write-Host "   Spotify id: $($track.id)"
+    #     Write-Host "   Release Date: $($track.release_date)"
+    #     Write-Host "   Artist(s): $($track.artists.name -join ", ")"
+    # }
 }
 
 # fetching songs works out, there is a cap with the resp rate here

@@ -73,7 +73,7 @@ func main() {
 	// and inserting the offset of as a string 0, 50, 100, 150, ... 
 
 	// chars := "abcdefghijklmnopqrstuvwxyz"
-	chars := "abcdefghijklmnopqrstuvwxyz"
+	chars := "ijklmnopqrstuvwxyz"
     for _, c := range chars {
         query := string(c)
 		fmt.Printf("Current query: %s\n", query)
