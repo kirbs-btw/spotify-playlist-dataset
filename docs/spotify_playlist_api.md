@@ -12,7 +12,7 @@ Additionally, the API typically supports only up to 10,000 playlists per hour, w
 ## Limits
 - Maximum of 1,000 playlists per search.
 - Maximum of 50 playlists per request.
-- API supports only up to 10,000 playlists per hour.
+- API supports only up to 5,000 playlists per day.
 - Extensive time required for large-scale data collection (up to 500 hours).
 - Potential for IP blocking due to high request volume.
 - Difficulty in adjusting the market parameter across different regions due to reliance on user country settings.

@@ -73,19 +73,15 @@ func main() {
 	// and inserting the offset of as a string 0, 50, 100, 150, ... 
 
 	// chars := "abcdefghijklmnopqrstuvwxyz"
-	chars := "ijklmnopqrstuvwxyz"
+	chars := "mnopqrstuvwxyz"
     for _, c := range chars {
         query := string(c)
 		fmt.Printf("Current query: %s\n", query)
         for offset := 0; offset < 21; offset++ {
-            // Offset multipliziert mit 50 und in einen String umwandeln
             offsetStr := strconv.Itoa(offset * 50)
             fetchAndSave(token, query, plWriter, songWriter, offsetStr)
         }
     }
-	// Daten abrufen und speichern
-	// query := "workout" // Beispiel-Query; anpassen oder per Flag/Arg übergeben
-	// fetchAndSave(token, query, plWriter, songWriter)
 }
 
 // getSpotifyToken ruft das Client-Credentials-Token ab
