@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"bufio"
 	"strings"
 	"strconv"
 	"fmt"
@@ -68,12 +69,33 @@ func main() {
 	songFile, songWriter := createCSV("data/songs.csv", []string{"playlist_id", "track_id", "track_name", "track_external_urls", "release_date", "artist_name"})
 	defer songFile.Close()
 
-	// now doing a loop over every char in the english lang
-	// "a", "b", "c" ...
-	// and inserting the offset of as a string 0, 50, 100, 150, ... 
+	// get keywords
+	// Open the file
+    file, err := os.Open("scripts/keywords.txt") // change the filename as needed
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return
+    }
+    defer file.Close()
 
-	// chars := "abcdefghijklmnopqrstuvwxyz"
-	chars := "mnopqrstuvwxyz"
+	var keywords []string
+	
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        keyword := scanner.Text()
+		keywords = append(keywords, keyword)
+    }
+
+	if err := scanner.Err(); err != nil {
+        fmt.Println("Error reading file:", err)
+        return
+    }
+
+    // for i, keyword := range keywords {
+	// 	// do sth with the keyword
+    // }
+
+	chars := "opqrstuvwxyz"
     for _, c := range chars {
         query := string(c)
 		fmt.Printf("Current query: %s\n", query)
