@@ -95,7 +95,7 @@ func main() {
 	// 	// do sth with the keyword
     // }
 
-	chars := "opqrstuvwxyz"
+	chars := "xyz"
     for _, c := range chars {
         query := string(c)
 		fmt.Printf("Current query: %s\n", query)
