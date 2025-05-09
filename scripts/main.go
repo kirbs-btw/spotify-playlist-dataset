@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
-	"bufio"
+	// "bufio"
 	"strings"
 	"strconv"
 	"fmt"
@@ -14,7 +14,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// Strukturen für Spotify-API-Antworten
+// structure Spotify-API
 type SearchResponse struct {
 	Playlists PlaylistPage `json:"playlists"`
 }
@@ -48,7 +48,7 @@ type Track struct {
 }
 
 func main() {
-	// .env laden
+	// load .env
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Fehler beim Laden der .env Datei: ", err)
@@ -56,57 +56,59 @@ func main() {
 	clientID := os.Getenv("CLIENT_ID")
 	clientSecret := os.Getenv("CLIENT_SECRET")
 
-	// Spotify-Token holen
+	// get Spotify-Token
 	token, err := getSpotifyToken(clientID, clientSecret)
 	if err != nil {
 		log.Fatalf("Fehler beim Holen des Tokens: %v", err)
 	}
 
-	// CSV-Dateien initialisieren
+	// CSV-Dateien init
 	plFile, plWriter := createCSV("data/playlists.csv", []string{"playlist_id", "playlist_name", "tracks_href"})
 	defer plFile.Close()
 
 	songFile, songWriter := createCSV("data/songs.csv", []string{"playlist_id", "track_id", "track_name", "track_external_urls", "release_date", "artist_name"})
 	defer songFile.Close()
-
+	
+	// List of common words
 	// get keywords
 	// Open the file
-    file, err := os.Open("scripts/keywords.txt") // change the filename as needed
-    if err != nil {
-        fmt.Println("Error opening file:", err)
-        return
-    }
-    defer file.Close()
+    // file, err := os.Open("keywords/keywords_en.txt") // change the filename as needed
+    // if err != nil {
+    //     fmt.Println("Error opening file:", err)
+    //     return
+    // }
+    // defer file.Close()
 
-	var keywords []string
+	// var keywords []string
 	
-    scanner := bufio.NewScanner(file)
-    for scanner.Scan() {
-        keyword := scanner.Text()
-		keywords = append(keywords, keyword)
-    }
+    // scanner := bufio.NewScanner(file)
+    // for scanner.Scan() {
+    //     keyword := scanner.Text()
+	// 	keywords = append(keywords, keyword)
+    // }
 
-	if err := scanner.Err(); err != nil {
-        fmt.Println("Error reading file:", err)
-        return
-    }
+	// if err := scanner.Err(); err != nil {
+    //     fmt.Println("Error reading file:", err)
+    //     return
+    // }
 
     // for i, keyword := range keywords {
 	// 	// do sth with the keyword
     // }
 
-	chars := "xyz"
-    for _, c := range chars {
-        query := string(c)
-		fmt.Printf("Current query: %s\n", query)
-        for offset := 0; offset < 21; offset++ {
-            offsetStr := strconv.Itoa(offset * 50)
-            fetchAndSave(token, query, plWriter, songWriter, offsetStr)
-        }
-    }
+	// brute force method
+	// chars := "abcdefghijklmnopqrstuvwxyz"
+    // for _, c := range chars {
+    //     query := string(c)
+	// 	fmt.Printf("Current query: %s\n", query)
+    //     for offset := 0; offset < 21; offset++ {
+    //         offsetStr := strconv.Itoa(offset * 50)
+    //         fetchAndSave(token, query, plWriter, songWriter, offsetStr)
+    //     }
+    // }
 }
 
-// getSpotifyToken ruft das Client-Credentials-Token ab
+// getSpotifyToken get Client-Credentials-Token
 type tokenResponse struct {
 	AccessToken string `json:"access_token"`
 }
@@ -130,7 +132,7 @@ func getSpotifyToken(clientID, clientSecret string) (string, error) {
 	return r.AccessToken, nil
 }
 
-// createCSV öffnet eine Datei, schreibt ggf. Header und gibt Writer zurück
+// createCSV open/create .csv with writer/file
 func createCSV(filename string, header []string) (*os.File, *csv.Writer) {
 	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0644)
 	if err != nil {
@@ -152,10 +154,10 @@ func createCSV(filename string, header []string) (*os.File, *csv.Writer) {
 	return file, writer
 }
 
-// fetchAndSave holt Playlists und Tracks und schreibt sie in CSV
+// fetchAndSave gets playlist and saves in the csv
 func fetchAndSave(token, query string, plWriter, songWriter *csv.Writer, offset string) {
 	client := resty.New()
-	// Playlists suchen
+	// playlist search
 	resp, err := client.R().
 		SetAuthToken(token).
 		SetQueryParams(map[string]string{"q": query, "type": "playlist", "limit": "50", "offset": offset}).
@@ -169,9 +171,9 @@ func fetchAndSave(token, query string, plWriter, songWriter *csv.Writer, offset 
 		log.Fatalf("JSON-Unmarshal-Fehler: %v", err)
 	}
 
-	// Playlists und zugehörige Tracks durchlaufen
+	// tracks of the playlist loop
 	for _, pl := range search.Playlists.Items {
-		// Tracks holen
+		// get tracks
 		trackResp, err := client.R().
 			SetAuthToken(token).
 			Get(pl.Tracks.Href)
