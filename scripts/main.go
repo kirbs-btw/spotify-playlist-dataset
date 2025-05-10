@@ -92,7 +92,7 @@ func main() {
         return
     }
 
-    for i, keyword := range keywords[0:] {
+    for i, keyword := range keywords[6:] {
 		query := keyword
 		fmt.Printf("Current query: %s\n", query)
 		fmt.Printf("Idx query: %s\n", i)
