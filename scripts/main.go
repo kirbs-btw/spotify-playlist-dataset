@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
-	// "bufio"
+	"bufio"
 	"strings"
 	"strconv"
 	"fmt"
@@ -72,29 +72,35 @@ func main() {
 	// List of common words
 	// get keywords
 	// Open the file
-    // file, err := os.Open("keywords/keywords_en.txt") // change the filename as needed
-    // if err != nil {
-    //     fmt.Println("Error opening file:", err)
-    //     return
-    // }
-    // defer file.Close()
+    file, err := os.Open("keywords/keywords_en.txt") // change the filename as needed
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return
+    }
+    defer file.Close()
 
-	// var keywords []string
+	var keywords []string
 	
-    // scanner := bufio.NewScanner(file)
-    // for scanner.Scan() {
-    //     keyword := scanner.Text()
-	// 	keywords = append(keywords, keyword)
-    // }
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        keyword := scanner.Text()
+		keywords = append(keywords, keyword)
+    }
 
-	// if err := scanner.Err(); err != nil {
-    //     fmt.Println("Error reading file:", err)
-    //     return
-    // }
+	if err := scanner.Err(); err != nil {
+        fmt.Println("Error reading file:", err)
+        return
+    }
 
-    // for i, keyword := range keywords {
-	// 	// do sth with the keyword
-    // }
+    for i, keyword := range keywords[0:] {
+		query := keyword
+		fmt.Printf("Current query: %s\n", query)
+		fmt.Printf("Idx query: %s\n", i)
+		for offset := 0; offset < 21; offset++ {
+            offsetStr := strconv.Itoa(offset * 50)
+            fetchAndSave(token, query, plWriter, songWriter, offsetStr)
+		}
+    }
 
 	// brute force method
 	// chars := "abcdefghijklmnopqrstuvwxyz"
