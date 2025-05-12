@@ -9,6 +9,7 @@ import (
 	"strings"
 	"strconv"
 	"fmt"
+	"flag"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/joho/godotenv"
@@ -48,8 +49,12 @@ type Track struct {
 }
 
 func main() {
+	envFile := flag.String("env", ".env", "Path to .env file")
+    flag.Parse()
+	// exp.: go run scripts/main.go --env=dev.env
+
 	// load .env
-	err := godotenv.Load()
+	err := godotenv.Load(*envFile)
 	if err != nil {
 		log.Fatal("Fehler beim Laden der .env Datei: ", err)
 	}
@@ -92,7 +97,7 @@ func main() {
         return
     }
 
-    for i, keyword := range keywords[6:] {
+    for i, keyword := range keywords[8:] {
 		query := keyword
 		fmt.Printf("Current query: %s\n", query)
 		fmt.Printf("Idx query: %s\n", i)
