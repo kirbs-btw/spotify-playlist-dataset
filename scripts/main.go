@@ -50,8 +50,10 @@ type Track struct {
 
 func main() {
 	envFile := flag.String("env", ".env", "Path to .env file")
+	keyword_idx := flag.String("kw_idx", "37", "idx shift in the keywords file")
+	keyword_file := flag.String("kw_file", "keywords_en.txt", "file of the keywords")
     flag.Parse()
-	// exp.: go run scripts/main.go --env=dev.env
+	// exp.: go run scripts/main.go --env=.env
 
 	// load .env
 	err := godotenv.Load(*envFile)
@@ -77,7 +79,8 @@ func main() {
 	// List of common words
 	// get keywords
 	// Open the file
-    file, err := os.Open("keywords/keywords_en.txt") // change the filename as needed
+	file_path := fmt.Sprintf("keywords/%s", *keyword_file)
+    file, err := os.Open(file_path)
     if err != nil {
         fmt.Println("Error opening file:", err)
         return
@@ -97,7 +100,13 @@ func main() {
         return
     }
 
-    for i, keyword := range keywords[8:] {
+	idx_shift, err := strconv.Atoi(*keyword_idx)
+	if err != nil {
+		fmt.Println("The index shift was not an integer")
+		return
+	}
+	// 37 
+    for i, keyword := range keywords[idx_shift:] {
 		query := keyword
 		fmt.Printf("Current query: %s\n", query)
 		fmt.Printf("Idx query: %s\n", i)
