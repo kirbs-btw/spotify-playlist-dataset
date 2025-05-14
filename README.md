@@ -30,6 +30,17 @@ This method uses a predefined list of frequently used words or phrases found in 
 - **Considerations:**  
   More efficient than brute force, but may miss obscure or uniquely named playlists.
 
+## Usage
+```sh
+go run scripts/main.go --env=.env --kw_idx=0 --kw_file==keywords_sp.txt
+```
+```sh
+go run scripts/main.go --env=.env --kw_idx=0 --kw_file==keywords_en.txt
+```
+```sh
+go run scripts/main.go --env=.env --kw_idx=0 --kw_file==keywords_ger.txt
+```
+
 ## Api Analysis
 **Spotify Api Analysis:** <br>
 [Analysis, Limits and Capabilities](/docs/spotify_playlist_api.md)

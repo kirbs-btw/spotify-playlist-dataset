@@ -50,7 +50,7 @@ type Track struct {
 
 func main() {
 	envFile := flag.String("env", ".env", "Path to .env file")
-	keyword_idx := flag.String("kw_idx", "37", "idx shift in the keywords file")
+	keyword_idx := flag.String("kw_idx", "44", "idx shift in the keywords file")
 	keyword_file := flag.String("kw_file", "keywords_en.txt", "file of the keywords")
     flag.Parse()
 	// exp.: go run scripts/main.go --env=.env
