@@ -32,10 +32,10 @@ This method uses a predefined list of frequently used words or phrases found in 
 
 ## Usage
 ```sh
-go run scripts/main.go --env=.env --kw_idx=0 --kw_file=keywords_sp.txt
+go run scripts/main.go --env=.env --kw_idx=22 --kw_file=keywords_sp.txt
 ```
 ```sh
-go run scripts/main.go --env=.env --kw_idx=0 --kw_file=keywords_en.txt
+go run scripts/main.go --env=.env --kw_idx=56 --kw_file=keywords_en.txt
 ```
 ```sh
 go run scripts/main.go --env=.env --kw_idx=0 --kw_file=keywords_ger.txt
