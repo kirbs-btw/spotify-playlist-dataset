@@ -52,6 +52,8 @@ func main() {
 	envFile := flag.String("env", ".env", "Path to .env file")
 	keyword_idx := flag.String("kw_idx", "44", "idx shift in the keywords file")
 	keyword_file := flag.String("kw_file", "keywords_en.txt", "file of the keywords")
+	playlist_file_name := flag.String("pl_file_name", "data/playlists.csv", "file to save playlists to")
+	song_file_name := flag.String("s_file_name", "data/songs.csv", "file of the save songs to")
     flag.Parse()
 	// exp.: go run scripts/main.go --env=.env
 
@@ -70,10 +72,10 @@ func main() {
 	}
 
 	// CSV-Dateien init
-	plFile, plWriter := createCSV("data/playlists.csv", []string{"playlist_id", "playlist_name", "tracks_href"})
+	plFile, plWriter := createCSV(*playlist_file_name, []string{"playlist_id", "playlist_name", "tracks_href"})
 	defer plFile.Close()
 
-	songFile, songWriter := createCSV("data/songs.csv", []string{"playlist_id", "track_id", "track_name", "track_external_urls", "release_date", "artist_name"})
+	songFile, songWriter := createCSV(*song_file_name, []string{"playlist_id", "track_id", "track_name", "track_external_urls", "release_date", "artist_name"})
 	defer songFile.Close()
 	
 	// List of common words
