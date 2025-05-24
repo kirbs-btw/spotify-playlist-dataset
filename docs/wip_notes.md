@@ -9,4 +9,6 @@ use the market parameter to maybe only get songs in the different languages? nee
 Generally this param could also mean to support index music and so on to be in line with local legslation
 
 Currently using keywords to search for any playlist type. Words in english, spanish and german
-Will need to extend the script to work in parallel to do multiple api codes at once
+
+script is extended for multiple api keys, outputs, inputs, index shift in the keywords 
+
