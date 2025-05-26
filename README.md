@@ -40,7 +40,12 @@ go run scripts/main.go --env=.env --kw_idx=57 --kw_file=keywords_en.txt --s_file
 ```sh
 go run scripts/main.go --env=.env --kw_idx=15 --kw_file=keywords_ger.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
 ```
-
+### Flags 
+'--kw_file' - the file where your keywords are stored (.txt) 
+'--env' your environment name 
+'--kw_idx' - the index for the start keyword 
+'--s_file_name' - where the songs are saved 
+'--pl_file_name' - where the playlists are saved
 ## Api Analysis
 **Spotify Api Analysis:** <br>
 [Analysis, Limits and Capabilities](/docs/spotify_playlist_api.md)
