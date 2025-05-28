@@ -32,13 +32,13 @@ This method uses a predefined list of frequently used words or phrases found in 
 
 ## Usage
 ```sh
-go run scripts/main.go --env=.env --kw_idx=29 --kw_file=keywords_sp.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
+go run scripts/main.go --env=.env --kw_idx=31 --kw_file=keywords_sp.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
 ```
 ```sh
-go run scripts/main.go --env=.env --kw_idx=57 --kw_file=keywords_en.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
+go run scripts/main.go --env=.env --kw_idx=59 --kw_file=keywords_en.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
 ```
 ```sh
-go run scripts/main.go --env=.env --kw_idx=15 --kw_file=keywords_ger.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
+go run scripts/main.go --env=.env --kw_idx=24 --kw_file=keywords_ger.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
 ```
 
 ## Api Analysis

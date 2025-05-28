@@ -23,6 +23,11 @@ go.work.sum
 
 # env file
 .env-sp
+.env-en
+.env-ger
+.env_sp
+.env_en
+.env_ger
 .env
 output.csv
 strg/
