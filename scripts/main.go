@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"fmt"
 	"flag"
+	"time"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/joho/godotenv"
@@ -107,8 +108,9 @@ func main() {
 		fmt.Println("The index shift was not an integer")
 		return
 	}
-	// 37 
+	
     for i, keyword := range keywords[idx_shift:] {
+		time.Sleep(3 * time.Millisecond)
 		query := keyword
 		fmt.Printf("Current query: %s\n", query)
 		fmt.Printf("Idx query: %s\n", i)
