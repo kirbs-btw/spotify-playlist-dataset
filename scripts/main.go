@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"fmt"
 	"flag"
-	"time"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/joho/godotenv"
@@ -57,6 +56,7 @@ func main() {
 	song_file_name := flag.String("s_file_name", "data/songs.csv", "file of the save songs to")
     flag.Parse()
 	// exp.: go run scripts/main.go --env=.env
+	fmt.Println("envF:", envFile)	
 
 	// load .env
 	err := godotenv.Load(*envFile)
@@ -65,6 +65,9 @@ func main() {
 	}
 	clientID := os.Getenv("CLIENT_ID")
 	clientSecret := os.Getenv("CLIENT_SECRET")
+
+	fmt.Println("cID:", clientID)
+	fmt.Println("cS:", clientSecret)
 
 	// get Spotify-Token
 	token, err := getSpotifyToken(clientID, clientSecret)
@@ -109,8 +112,7 @@ func main() {
 		return
 	}
 	
-    for i, keyword := range keywords[idx_shift:] {
-		time.Sleep(3 * time.Millisecond)
+	for i, keyword := range keywords[idx_shift:] {
 		query := keyword
 		fmt.Printf("Current query: %s\n", query)
 		fmt.Printf("Idx query: %s\n", i)
@@ -119,17 +121,6 @@ func main() {
             fetchAndSave(token, query, plWriter, songWriter, offsetStr)
 		}
     }
-
-	// brute force method
-	// chars := "abcdefghijklmnopqrstuvwxyz"
-    // for _, c := range chars {
-    //     query := string(c)
-	// 	fmt.Printf("Current query: %s\n", query)
-    //     for offset := 0; offset < 21; offset++ {
-    //         offsetStr := strconv.Itoa(offset * 50)
-    //         fetchAndSave(token, query, plWriter, songWriter, offsetStr)
-    //     }
-    // }
 }
 
 // getSpotifyToken get Client-Credentials-Token

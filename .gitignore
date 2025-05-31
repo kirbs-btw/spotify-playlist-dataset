@@ -28,6 +28,9 @@ go.work.sum
 .env_sp
 .env_en
 .env_ger
+.env_en_2
+.env_sp_2
+.env_ger_2
 .env
 output.csv
 strg/

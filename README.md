@@ -32,13 +32,13 @@ This method uses a predefined list of frequently used words or phrases found in 
 
 ## Usage
 ```sh
-go run scripts/main.go --env=.env --kw_idx=31 --kw_file=keywords_sp.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
+go run scripts/main.go --env=.env-sp --kw_idx=53 --kw_file=keywords_sp.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
 ```
 ```sh
-go run scripts/main.go --env=.env --kw_idx=59 --kw_file=keywords_en.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
+go run scripts/main.go --env=.env-en --kw_idx=82 --kw_file=keywords_en.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
 ```
 ```sh
-go run scripts/main.go --env=.env --kw_idx=24 --kw_file=keywords_ger.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
+go run scripts/main.go --env=.env-ger --kw_idx=45 --kw_file=keywords_ger.txt --s_file_name=data/songs.csv --pl_file_name=data/playlists.csv
 ```
 ### Flags 
 '--kw_file' - the file where your keywords are stored (.txt) 
