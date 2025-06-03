@@ -118,6 +118,7 @@ func main() {
 		fmt.Printf("Idx query: %s\n", i)
 		for offset := 0; offset < 21; offset++ {
             offsetStr := strconv.Itoa(offset * 50)
+			fmt.Printf("Batch: %s", offsetStr)
             fetchAndSave(token, query, plWriter, songWriter, offsetStr)
 		}
     }
@@ -183,7 +184,7 @@ func fetchAndSave(token, query string, plWriter, songWriter *csv.Writer, offset 
 
 	var search SearchResponse
 	if err := json.Unmarshal(resp.Body(), &search); err != nil {
-		log.Fatalf("JSON-Unmarshal-Fehler: %v", err)
+		// log.Fatalf("JSON-Unmarshal-Fehler: %v", err)
 	}
 
 	// tracks of the playlist loop
@@ -207,7 +208,7 @@ func fetchAndSave(token, query string, plWriter, songWriter *csv.Writer, offset 
 		
 		var tr TracksResponse
 		if err := json.Unmarshal(trackResp.Body(), &tr); err != nil {
-			log.Printf("JSON-Unmarshal-Fehler Tracks für %s: %v", pl.ID, err)
+			// log.Printf("JSON-Unmarshal-Fehler Tracks für %s: %v", pl.ID, err)
 			continue
 		}
 
